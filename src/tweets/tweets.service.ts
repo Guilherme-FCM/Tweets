@@ -11,8 +11,8 @@ export class TweetsService {
     private tweetModel: typeof Tweet,
   ) {}
 
-  create(createTweetDto: CreateTweetDto) {
-    return 'This action adds a new tweet';
+  create(tweet) {
+    return this.tweetModel.create(tweet);
   }
 
   findAll() {
