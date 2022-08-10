@@ -11,8 +11,10 @@ export class TweetsService {
     private tweetModel: typeof Tweet,
   ) {}
 
-  create(tweet) {
-    return this.tweetModel.create(tweet);
+  create(createTweetDto: CreateTweetDto) {
+    return this.tweetModel.create({
+      content: createTweetDto.content,
+    });
   }
 
   findAll() {
