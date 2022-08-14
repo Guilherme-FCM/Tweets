@@ -26,8 +26,10 @@ export class TweetsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.tweetsService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    const tweet = await this.tweetsService.findOne(+id);
+    if (!tweet) return { error: 'Tweet not found.' };
+    return tweet;
   }
 
   @Patch(':id')

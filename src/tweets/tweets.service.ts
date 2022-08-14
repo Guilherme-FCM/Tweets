@@ -22,7 +22,7 @@ export class TweetsService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} tweet`;
+    return this.tweetModel.findOne({ where: { id } });
   }
 
   update(id: number, updateTweetDto: UpdateTweetDto) {
