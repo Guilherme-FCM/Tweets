@@ -6,10 +6,13 @@ import {
   Patch,
   Param,
   Delete,
+  Res,
+  HttpStatus,
 } from '@nestjs/common';
 import { TweetsService } from './tweets.service';
 import { CreateTweetDto } from './dto/create-tweet.dto';
 import { UpdateTweetDto } from './dto/update-tweet.dto';
+import { Response } from 'express';
 
 @Controller('tweets')
 export class TweetsController {
@@ -26,9 +29,10 @@ export class TweetsController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
+  async findOne(@Param('id') id: string, @Res() res: Response) {
     const tweet = await this.tweetsService.findOne(+id);
-    if (!tweet) return { error: 'Tweet not found.' };
+    if (!tweet)
+      res.status(HttpStatus.NOT_FOUND).json({ error: 'Tweet not found.' });
     return tweet;
   }
 
@@ -36,16 +40,19 @@ export class TweetsController {
   async update(
     @Param('id') id: string,
     @Body() updateTweetDto: UpdateTweetDto,
+    @Res() res: Response,
   ) {
     const [result] = await this.tweetsService.update(+id, updateTweetDto);
-    if (result === 0) return { error: 'Tweet not found.' };
+    if (result === 0)
+      res.status(HttpStatus.NOT_FOUND).json({ error: 'Tweet not found.' });
     return this.tweetsService.findOne(+id);
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string) {
+  async remove(@Param('id') id: string, @Res() res: Response) {
     const result = await this.tweetsService.remove(+id);
-    if (result === 0) return { error: 'Tweet not found.' };
+    if (result === 0)
+      res.status(HttpStatus.NOT_FOUND).json({ error: 'Tweet not found.' });
     return { message: 'success.' };
   }
 }
