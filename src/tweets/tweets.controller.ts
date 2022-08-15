@@ -43,7 +43,9 @@ export class TweetsController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.tweetsService.remove(+id);
+  async remove(@Param('id') id: string) {
+    const result = await this.tweetsService.remove(+id);
+    if (result === 0) return { error: 'Tweet not found.' };
+    return { message: 'success.' };
   }
 }
