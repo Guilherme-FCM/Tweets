@@ -30,6 +30,6 @@ export class TweetsService {
   }
 
   remove(id: number) {
-    return `This action removes a #${id} tweet`;
+    return this.tweetModel.destroy({ where: { id } });
   }
 }
