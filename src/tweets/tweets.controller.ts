@@ -19,8 +19,9 @@ export class TweetsController {
   constructor(private readonly tweetsService: TweetsService) {}
 
   @Post()
-  create(@Body() createTweetDto: CreateTweetDto) {
-    return this.tweetsService.create(createTweetDto);
+  async create(@Body() createTweetDto: CreateTweetDto, @Res() res: Response) {
+    const tweet = await this.tweetsService.create(createTweetDto);
+    return res.status(HttpStatus.CREATED).json(tweet);
   }
 
   @Get()
