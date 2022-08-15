@@ -26,7 +26,7 @@ export class TweetsService {
   }
 
   update(id: number, updateTweetDto: UpdateTweetDto) {
-    return `This action updates a #${id} tweet`;
+    return this.tweetModel.update(updateTweetDto, { where: { id } });
   }
 
   remove(id: number) {
