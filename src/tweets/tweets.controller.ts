@@ -33,8 +33,13 @@ export class TweetsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTweetDto: UpdateTweetDto) {
-    return this.tweetsService.update(+id, updateTweetDto);
+  async update(
+    @Param('id') id: string,
+    @Body() updateTweetDto: UpdateTweetDto,
+  ) {
+    const [result] = await this.tweetsService.update(+id, updateTweetDto);
+    if (result === 0) return { error: 'Tweet not found.' };
+    return this.tweetsService.findOne(+id);
   }
 
   @Delete(':id')
