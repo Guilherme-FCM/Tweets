@@ -12,9 +12,7 @@ export class TweetsService {
   ) {}
 
   create(createTweetDto: CreateTweetDto) {
-    return this.tweetModel.create({
-      content: createTweetDto.content,
-    });
+    return this.tweetModel.create({ ...createTweetDto });
   }
 
   findAll() {
