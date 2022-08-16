@@ -4,6 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { Tweet } from './tweets/entities/tweet.entity';
 import { TweetsModule } from './tweets/tweets.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { TweetsModule } from './tweets/tweets.module';
       synchronize: true,
     }),
     TweetsModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
