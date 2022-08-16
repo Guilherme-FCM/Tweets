@@ -12,13 +12,7 @@ export class UsersService {
   ) {}
 
   create(createUserDto: CreateUserDto) {
-    return this.userModel.create({
-      telephone: createUserDto.telephone,
-      email: createUserDto.email,
-      password: createUserDto.password,
-      name: createUserDto.name,
-      birthDate: createUserDto.birthDate,
-    });
+    return this.userModel.create({ ...createUserDto });
   }
 
   findAll() {
