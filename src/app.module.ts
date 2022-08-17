@@ -6,9 +6,6 @@ import { Tweet } from './tweets/entities/tweet.entity';
 import { TweetsModule } from './tweets/tweets.module';
 import { User } from './users/entities/user.entity';
 import { UsersModule } from './users/users.module';
-import { AuthController } from './auth/auth/auth.controller';
-import { AuthController } from './auth/auth.controller';
-import { AuthService } from './auth/auth.service';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
@@ -28,7 +25,7 @@ import { AuthModule } from './auth/auth.module';
     UsersModule,
     AuthModule,
   ],
-  controllers: [AppController, AuthController],
-  providers: [AppService, AuthService],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
