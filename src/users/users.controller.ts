@@ -47,13 +47,13 @@ export class UsersController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string, @Res() res: Response) {
-    const user = this.usersService.findOne(+id);
+  async findOne(@Param('id') id: string, @Res() res: Response) {
+    const user = await this.usersService.findOne(+id);
     if (!user)
       return res
         .status(HttpStatus.NOT_FOUND)
         .json({ error: 'User not found.' });
-    return user;
+    return res.json(user);
   }
 
   @Patch(':id')
@@ -65,7 +65,7 @@ export class UsersController {
     const [result] = await this.usersService.update(+id, updateUserDto);
     if (result === 0)
       res.status(HttpStatus.NOT_FOUND).json({ error: 'User not found.' });
-    return this.usersService.findOne(+id);
+    return res.json(this.usersService.findOne(+id));
   }
 
   @Delete(':id')
@@ -73,6 +73,6 @@ export class UsersController {
     const result = await this.usersService.remove(+id);
     if (result === 0)
       res.status(HttpStatus.NOT_FOUND).json({ error: 'User not found.' });
-    return { message: 'success.' };
+    return res.json({ message: 'success.' });
   }
 }
