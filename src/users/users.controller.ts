@@ -22,7 +22,9 @@ export class UsersController {
   async create(@Body() createUserDto: CreateUserDto, @Res() res: Response) {
     const credentials = [];
     if (!createUserDto.email && !createUserDto.telephone)
-      return res.json({ message: 'Email or telephone is required.' });
+      return res
+        .status(HttpStatus.BAD_REQUEST)
+        .json({ message: 'Email or telephone is required.' });
 
     if (createUserDto.email) credentials.push({ email: createUserDto.email });
 
@@ -31,7 +33,7 @@ export class UsersController {
 
     const findedUsers = await this.usersService.countByCredentials(credentials);
     if (findedUsers > 0)
-      return res.json({
+      return res.status(HttpStatus.NO_CONTENT).json({
         message: 'This email or telephone is vinculated to a account.',
       });
 
