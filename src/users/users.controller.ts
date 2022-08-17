@@ -45,8 +45,13 @@ export class UsersController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(+id);
+  findOne(@Param('id') id: string, @Res() res: Response) {
+    const user = this.usersService.findOne(+id);
+    if (!user)
+      return res
+        .status(HttpStatus.NOT_FOUND)
+        .json({ error: 'User not found.' });
+    return user;
   }
 
   @Patch(':id')
