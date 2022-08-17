@@ -33,7 +33,9 @@ export class TweetsController {
   async findOne(@Param('id') id: string, @Res() res: Response) {
     const tweet = await this.tweetsService.findOne(+id);
     if (!tweet)
-      res.status(HttpStatus.NOT_FOUND).json({ error: 'Tweet not found.' });
+      return res
+        .status(HttpStatus.NOT_FOUND)
+        .json({ error: 'Tweet not found.' });
     return tweet;
   }
 
