@@ -57,12 +57,22 @@ export class UsersController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(+id, updateUserDto);
+  async update(
+    @Param('id') id: string,
+    @Body() updateUserDto: UpdateUserDto,
+    @Res() res: Response,
+  ) {
+    const [result] = await this.usersService.update(+id, updateUserDto);
+    if (result === 0)
+      res.status(HttpStatus.NOT_FOUND).json({ error: 'User not found.' });
+    return this.usersService.findOne(+id);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
+  async remove(@Param('id') id: string, @Res() res: Response) {
+    const result = await this.usersService.remove(+id);
+    if (result === 0)
+      res.status(HttpStatus.NOT_FOUND).json({ error: 'User not found.' });
+    return { message: 'success.' };
   }
 }
