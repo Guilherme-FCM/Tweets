@@ -33,7 +33,7 @@ export class UsersController {
 
     const findedUsers = await this.usersService.countByCredentials(credentials);
     if (findedUsers > 0)
-      return res.status(HttpStatus.NO_CONTENT).json({
+      return res.status(HttpStatus.UNPROCESSABLE_ENTITY).json({
         message: 'This email or telephone is vinculated to a account.',
       });
 
