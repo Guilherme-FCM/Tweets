@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { User } from 'src/users/entities/user.entity';
+import { LoginDto } from './dto/login.dto';
 
 @Injectable()
 export class AuthService {
@@ -9,7 +10,8 @@ export class AuthService {
     private userModel: typeof User,
   ) {}
 
-  login() {
-    return 'Validate login.';
+  login(loginDto: LoginDto) {
+    const user = this.userModel.findOne({ where: { ...loginDto } });
+    return user;
   }
 }
