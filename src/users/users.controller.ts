@@ -65,7 +65,7 @@ export class UsersController {
     const [result] = await this.usersService.update(+id, updateUserDto);
     if (result === 0)
       res.status(HttpStatus.NOT_FOUND).json({ error: 'User not found.' });
-    return res.json(this.usersService.findOne(+id));
+    return res.json(await this.usersService.findOne(+id));
   }
 
   @Delete(':id')
