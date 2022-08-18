@@ -36,7 +36,7 @@ export class TweetsController {
       return res
         .status(HttpStatus.NOT_FOUND)
         .json({ error: 'Tweet not found.' });
-    return tweet;
+    return res.json(tweet);
   }
 
   @Patch(':id')
@@ -48,7 +48,7 @@ export class TweetsController {
     const [result] = await this.tweetsService.update(+id, updateTweetDto);
     if (result === 0)
       res.status(HttpStatus.NOT_FOUND).json({ error: 'Tweet not found.' });
-    return this.tweetsService.findOne(+id);
+    return res.json(await this.tweetsService.findOne(+id));
   }
 
   @Delete(':id')
@@ -56,6 +56,6 @@ export class TweetsController {
     const result = await this.tweetsService.remove(+id);
     if (result === 0)
       res.status(HttpStatus.NOT_FOUND).json({ error: 'Tweet not found.' });
-    return { message: 'success.' };
+    return res.json({ message: 'success.' });
   }
 }
