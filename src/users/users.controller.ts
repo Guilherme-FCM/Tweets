@@ -13,6 +13,7 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Response } from 'express';
+import * as bcrypt from 'bcrypt';
 
 @Controller('users')
 export class UsersController {
@@ -36,6 +37,9 @@ export class UsersController {
       return res.status(HttpStatus.UNPROCESSABLE_ENTITY).json({
         message: 'This email or telephone is vinculated to a account.',
       });
+
+    const hash = await bcrypt.hash(createUserDto.password, 10);
+    createUserDto.password = hash;
 
     const createdUser = await this.usersService.create(createUserDto);
     return res.status(HttpStatus.CREATED).json(createdUser);
