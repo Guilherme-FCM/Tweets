@@ -18,11 +18,16 @@ export class UsersService {
   }
 
   findAll() {
-    return this.userModel.findAll();
+    return this.userModel.findAll({
+      attributes: ['id', 'email', 'telephone', 'name', 'birthDate'],
+    });
   }
 
   findOne(id: number) {
-    return this.userModel.findOne({ where: { id } });
+    return this.userModel.findOne({
+      where: { id },
+      attributes: ['id', 'email', 'telephone', 'name', 'birthDate'],
+    });
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
