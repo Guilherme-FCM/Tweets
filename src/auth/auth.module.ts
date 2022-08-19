@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common';
-import { SequelizeModule } from '@nestjs/sequelize';
-import { User } from 'src/users/entities/user.entity';
+import { PassportModule } from '@nestjs/passport';
+import { UsersModule } from 'src/users/users.module';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
+import { LocalStrategy } from './local.strategy';
 
 @Module({
-  imports: [SequelizeModule.forFeature([User])],
+  imports: [UsersModule, PassportModule],
   controllers: [AuthController],
-  providers: [AuthService],
+  providers: [AuthService, LocalStrategy],
 })
 export class AuthModule {}

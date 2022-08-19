@@ -43,4 +43,10 @@ export class UsersService {
       where: { [Op.or]: credentials },
     });
   }
+
+  findByEmail(telephone: string) {
+    return this.userModel.findOne({
+      where: { telephone },
+    });
+  }
 }
