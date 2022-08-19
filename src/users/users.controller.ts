@@ -60,6 +60,16 @@ export class UsersController {
     return res.json(user);
   }
 
+  @Get(':id/tweets')
+  async findTweets(@Param('id') id: string, @Res() res: Response) {
+    const user = await this.usersService.findTweets(+id);
+    if (!user)
+      return res
+        .status(HttpStatus.NOT_FOUND)
+        .json({ error: 'User not found.' });
+    return res.json(user);
+  }
+
   @Patch(':id')
   async update(
     @Param('id') id: string,
