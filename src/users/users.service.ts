@@ -44,9 +44,9 @@ export class UsersService {
     });
   }
 
-  findByEmail(telephone: string) {
+  findByEmail(email: string) {
     return this.userModel.findOne({
-      where: { telephone },
+      where: { email },
     });
   }
 }
