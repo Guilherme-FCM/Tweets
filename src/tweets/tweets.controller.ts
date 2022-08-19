@@ -8,13 +8,16 @@ import {
   Delete,
   Res,
   HttpStatus,
+  UseGuards,
 } from '@nestjs/common';
 import { TweetsService } from './tweets.service';
 import { CreateTweetDto } from './dto/create-tweet.dto';
 import { UpdateTweetDto } from './dto/update-tweet.dto';
 import { Response } from 'express';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('tweets')
+@UseGuards(AuthGuard('jwt'))
 export class TweetsController {
   constructor(private readonly tweetsService: TweetsService) {}
 
