@@ -21,21 +21,9 @@ export class UsersController {
 
   @Post()
   async create(@Body() createUserDto: CreateUserDto, @Res() res: Response) {
-    const credentials = [];
-    if (!createUserDto.email && !createUserDto.telephone)
-      return res
-        .status(HttpStatus.BAD_REQUEST)
-        .json({ message: 'Email or telephone is required.' });
-
-    if (createUserDto.email) credentials.push({ email: createUserDto.email });
-
-    if (createUserDto.telephone)
-      credentials.push({ telephone: createUserDto.telephone });
-
-    const findedUsers = await this.usersService.countByCredentials(credentials);
-    if (findedUsers > 0)
+    if (await this.usersService.findByEmail(createUserDto.email))
       return res.status(HttpStatus.UNPROCESSABLE_ENTITY).json({
-        message: 'This email or telephone is vinculated to a account.',
+        message: 'This email is vinculated to a account.',
       });
 
     const hash = await bcrypt.hash(createUserDto.password, 10);

@@ -6,13 +6,9 @@ import {
 } from 'class-validator';
 
 export class CreateUserDto {
-  @IsNumberString()
-  @IsOptional()
-  telephone?: string;
-
   @IsEmail()
-  @IsOptional()
-  email?: string;
+  @IsNotEmpty()
+  email: string;
 
   @IsNotEmpty()
   password: string;
@@ -22,4 +18,8 @@ export class CreateUserDto {
 
   @IsNotEmpty()
   birthDate: string;
+
+  @IsNumberString()
+  @IsOptional()
+  telephone?: string;
 }

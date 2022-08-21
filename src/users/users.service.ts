@@ -1,7 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { Op } from 'sequelize';
-import { WhereOptions } from 'sequelize';
 import { Tweet } from 'src/tweets/entities/tweet.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -47,13 +45,8 @@ export class UsersService {
     return this.userModel.destroy({ where: { id } });
   }
 
-  countByCredentials(credentials: WhereOptions<User>) {
-    return this.userModel.count({
-      where: { [Op.or]: credentials },
-    });
-  }
-
   findByEmail(email: string) {
+    console.log(email)
     return this.userModel.findOne({
       where: { email },
     });
