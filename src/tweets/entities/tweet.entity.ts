@@ -1,5 +1,5 @@
 import { Model, Column, Table, ForeignKey } from 'sequelize-typescript';
-import { User } from 'src/users/entities/user.entity';
+import { User } from '../../users/entities/user.entity';
 
 @Table({ tableName: 'tweets' })
 export class Tweet extends Model {
